@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local originalHair = {}
 local isHairEnabled = true
 
@@ -11,11 +12,12 @@ AddEventHandler('toggleHairClient', function(enable)
     isHairEnabled = enable
     if isHairEnabled then
         RestoreOrSaveHair()
-        local message = isHairEnabled and "activado." or "desactivado."
-        TriggerEvent('chatMessage', '^2INFO', {255, 255, 255}, 'El pelo ha sido ' .. message)
+        local message = isHairEnabled and "Activado." or "Desactivado."
+        QBCore.Functions.Notify("El pelo ha sido " .. message, "success")
     else
         SaveOriginalHair()
-        SetPedComponentVariation(PlayerPedId(), 2, 0, 0, 2) -- Desactiva el pelo
+        SetPedComponentVariation(PlayerPedId(), 2, 0, 0, 2)
+        QBCore.Functions.Notify("El pelo ha sido Desactivado.", "error")
     end
 end)
 
